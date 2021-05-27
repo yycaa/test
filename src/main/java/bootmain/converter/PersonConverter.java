@@ -1,5 +1,6 @@
 package bootmain.converter;
 
+import bootmain.module.Person;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -19,12 +20,15 @@ public class PersonConverter implements HttpMessageConverter {
 
     @Override
     public boolean canWrite(Class aClass, MediaType mediaType) {
-        return false;
+        //只要是person对象就返回true
+        return aClass.isAssignableFrom(Person.class);
     }
 
     @Override
+    //获取服务器可以支持的媒体类型时会调用该方法，返回本消息转换器支持的媒体类型
     public List<MediaType> getSupportedMediaTypes() {
-        return null;
+
+        return  MediaType.parseMediaTypes("application/x-person");
     }
 
     @Override
@@ -34,6 +38,14 @@ public class PersonConverter implements HttpMessageConverter {
 
     @Override
     public void write(Object o, MediaType mediaType, HttpOutputMessage httpOutputMessage) throws IOException, HttpMessageNotWritableException {
-
+        String data;
+        if (mediaType.equalsTypeAndSubtype(MediaType.parseMediaType("application/x-person"))) {
+            if(o instanceof Person){
+                //自定义application/x-person数据格式
+                data= ((Person) o).getName()+"-"+((Person) o).getID();
+                //将数据写出去
+                httpOutputMessage.getBody().write(data.getBytes());
+            }
+        }
     }
 }

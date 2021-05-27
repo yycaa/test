@@ -1,5 +1,6 @@
 package bootmain.controller;
 
+import bootmain.module.Person;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,15 @@ public class Hello {
         System.out.println("name:"+name);
         System.out.println("User-Agent:"+userAgent);
         return "paramHandler is running!";
+    }
+    @RequestMapping("/per")
+    public Person perCtrl(){
+    Person person=new Person();
+    person.setAge(18);
+    person.setID("123");
+    person.setTele("133333");
+    person.setName("机器人");
+        return person;
     }
 
 }

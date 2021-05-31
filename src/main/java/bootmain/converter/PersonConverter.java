@@ -9,6 +9,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PersonConverter implements HttpMessageConverter {
@@ -43,6 +46,9 @@ public class PersonConverter implements HttpMessageConverter {
             if(o instanceof Person){
                 //自定义application/x-person数据格式
                 data= ((Person) o).getName()+"-"+((Person) o).getID();
+                List <Charset> l= new ArrayList<Charset>();
+                l.add(Charset.forName("UTF-8"));
+                httpOutputMessage.getHeaders().setAcceptCharset(l);
                 //将数据写出去
                 httpOutputMessage.getBody().write(data.getBytes());
             }

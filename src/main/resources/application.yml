@@ -5,6 +5,7 @@ spring:
     password: yycaa
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   jdbc:
     template:
       query-timeout: 3

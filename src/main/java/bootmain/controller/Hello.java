@@ -1,6 +1,9 @@
 package bootmain.controller;
 
+import bootmain.domain.City;
 import bootmain.module.Person;
+import bootmain.service.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +41,17 @@ public class Hello {
         model.addAttribute("msg","Hello Thymeleaf 啊");
         model.addAttribute("link","https://www.baidu.com/");
         return "success";
+    }
+    @Autowired
+    CityService cityService;
+    @Autowired
+    City city;
+    @ResponseBody
+    @GetMapping("/city")
+    public City cityHandler(@RequestParam int id){
+        city=cityService.findCityById(id);
+        System.out.println(city);
+        return city;
     }
 
 }

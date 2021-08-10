@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class WebConfiger {
-    @Bean
+    //@Bean
     //WebMvcConfigurer+@Bean可以实现webmvc的自定义开发
     public WebMvcConfigurer webMvcConfigurer(){
         return new WebMvcConfigurer() {
